@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        
+        <!-- IMPORT BOOTSTRAP -->
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        
+            <!-- Link css -->
+         <link rel="stylesheet" href="style.css">
+
+
+        <!-- IMPORT AXIOS -->
+        <script src="./node_modules/axios/dist/axios.min.js"></script>
+        <script src="https://kit.fontawesome.com/1dcf3885aa.js" crossorigin="anonymous"></script>
+
+    </head>
+<body>
+        <!-- Modals -->
+
+    <!-- Login -->
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Username:</label>
+              <input type="email" class="form-control" id="username-input">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="password-input">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="loginBtn()">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- / Login -->
+
+  <!-- Register -->
+  <div class="modal fade" id="RegisterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Profile image:</label>
+              <input type="file" class="form-control" id="profile-image-input">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Name:</label>
+              <input type="text" class="form-control" id="reg-name-input">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Username:</label>
+              <input type="text" class="form-control" id="reg-username-input">
+            </div>
+
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="reg-password-input">
+            </div>
+
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="registerBtn()">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- / Register -->
+
+  <!-- Create post modal -->
+  <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="post-modal-title">Create a new post</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Title:</label>
+              <input type="text" class="form-control" id="post-title-input">
+
+              <input type="hidden" id="post-id-input" value="">
+            </div>
+        
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Body:</label>
+              <textarea name="" id="post-body-input" >
+              </textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Image:</label>
+              <input type="file" class="form-control" id="post-image-input">
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="post-modal-submit-btn" type="button" class="btn btn-primary" onclick="createNewPost()">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- / Create post modal -->
+
+  <!-- Delete post modal -->
+  <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="post-modal-title">Are you sure you want to delete the post 
+            <span id="delete-post-title"></span>
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="post-modal-submit-btn" type="button" class="btn btn-danger" onclick="confirmPostDelete()">Yes delete</button>
+    
+          <input type="hidden" id="delete-post-id-input" value="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- / Delete post modal -->
+
+
+    <!-- / Modals -->
+
+  <!-- alert -->
+  <div id="loginAlert" class="show fade" style="position: fixed; z-index: 999999; width: 30%; bottom: 0; right: 0;"></div>
+
+      <!-- Nav bar container -->
+    <div class="container pt-3">
+    
+        <div class="d-flex justify-content-center">
+
+        <div class="col-9 ">
+          <nav class="navbar shadow rounded navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="home.html">Sotor</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" onclick="profileClicked()" style="cursor: pointer;">Profile</a>
+                  </li>
+
+                </ul>
+                
+                <!-- Non logged in user -->
+                <div class="d-flex w-100 justify-content-end" id="logged-in-div" >
+                <button id="login-btn" type="button" class="btn btn-outline-success mx-3" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</button>
+                <button id="register-btn" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#RegisterModal">Register</button>
+                </div>
+
+                <!-- / Non logged in user -->
+
+                
+                <!--  logged in user -->
+                <div class="d-flex w-100 justify-content-end align-items-center" id="logout-div" >
+                  <img src="./profile-pics/1.jpg" id="userProfileImg" class="rounded-circle me-2" style="width: 40px; height: 40px;" alt="">
+                  <h5 class="me-3 " id="userProfileUsername">username</h5>
+                  <button onclick="logout()" id="logout-btn" type="button" class="btn btn-outline-danger">Logout</button>
+                </div>
+
+                <!-- / logged in user -->
+            </div>
+            </div>
+          </nav>
+        </div>
+
+        </div>
+    </div>
+    <!-- // Nav bar container -->
+
+        <!-- Main content -->
+        <div class="container ">
+
+            <!-- USER'S POST -->
+            <div class="d-flex justify-content-center mt-5">
+                <div class="col-9">
+                <h1>
+                    <span id="username-span">
+                        Faisal's
+                    </span>
+                    Post
+                </h1>
+
+
+                            <!-- POST -->
+            <div class="card shadow my-5" id="post" >
+                <div class="card-header">
+                    <img src="./profile-pics/1.jpg" class="rounded-circle" style="width: 40px; height: 40px;" alt="">
+                    <b id="username">@Faisal</b>
+                </div>
+                <div class="card-body" style="cursor: default;" >
+                    <img src="/placeholders/1.jpg" alt="" class="w-100" >
+                    <h6 style="color: rgb(154, 153, 153);" class="mt-2">
+                        2 min ago
+                    </h6>
+
+                    <h3>
+                        What a Cute Cat!
+                    </h3>
+
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet expedita temporibus aliquam quos sit molestias reprehenderit nam culpa quidem tenetur atque illo, rem blanditiis sunt ratione repellendus aliquid natus provident.
+                    </p>
+
+                    <hr>
+
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+                          </svg>
+
+                        <span>
+                            (3) Comments
+                        </span>
+                    </div>
+                </div>
+
+                <div id="comments">
+
+                <!-- comment -->
+                   <div class="p-3" style="background-color: rgb(239, 239, 239);">
+                    <!-- profile pic + username -->
+                    <img src="./profile-pics/1.jpg" class="rounded-circle" style="width: 40px; height: 40px;" alt="">
+                    <b>faisal</b>
+                    <!-- // profile pic + username -->
+
+                    <!-- comment body -->
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non eaque iste itaque, aliquam quae quis laborum? Consequuntur excepturi assumenda, harum itaque nisi, eveniet odio dolorem earum dolor officia reprehenderit nulla.
+                    </div>
+                    <!-- comment body -->
+                </div>
+                <!-- comment -->
+
+                <!-- comment -->
+                <div class="p-3" style="background-color: rgb(239, 239, 239);">
+                    <!-- profile pic + username -->
+                    <img src="./profile-pics/1.jpg" class="rounded-circle" style="width: 40px; height: 40px;" alt="">
+                    <b>faisal</b>
+                    <!-- profile pic + username -->
+
+                    <!-- comment body -->
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Non eaque iste itaque, aliquam quae quis laborum? Consequuntur excepturi assumenda, harum itaque nisi, eveniet odio dolorem earum dolor officia reprehenderit nulla.
+                    </div>
+                    <!-- comment body -->
+                </div>
+                <!-- comment -->
+                
+                  </div>
+
+
+              </div>
+
+                </div>
+            </div>
+
+
+        
+        </div>
+
+
+
+   <!--  POST SCRRIPTS -->
+    <script src="/script.js"></script>
+    <script data-main="/script.js" src="/require.js"></script>
+    <script src="/postDetailsLogic.js"></script>
+</body>
+
+
+</html> 
