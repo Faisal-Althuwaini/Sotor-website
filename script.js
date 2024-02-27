@@ -403,7 +403,6 @@ getPosts()
   }
 
   function userClicked(userId) {
-    alert(userId)
     window.location = `profile.html?userid=${userId}`
   }
 
