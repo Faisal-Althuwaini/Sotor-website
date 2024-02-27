@@ -343,7 +343,8 @@ getPosts()
         createPostModalInstance.hide()     
   
         showAlert("New Post Has Been Created","success")
-        getPosts()
+        // getPosts()
+        getPosts(true, 1)
       }).catch((error) => {
         const message = error.response.data.message
         showAlert(message,"danger")
@@ -367,8 +368,12 @@ getPosts()
         createPostModalInstance.hide()     
   
         showAlert("Post has been Edited","success")
-        getPosts()
-      }).catch((error) => {
+        getPosts(true, 1)
+        setTimeout(function(){
+          location.reload();
+      }, 2000);      })
+      
+      .catch((error) => {
         const message = error.response.data.message
         showAlert(message,"danger")
         console.log(error)
