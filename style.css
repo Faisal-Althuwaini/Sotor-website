@@ -100,6 +100,11 @@ box-shadow: 0 0 0 0.2rem rgba(230, 230, 230, 0.25);
     flex-direction: row !important;
     margin-top: 10px;
   }
+
+  #loginAlert {
+    width: 60% !important;
+  }
+
  }
 
 .footer a {
@@ -107,3 +112,4 @@ box-shadow: 0 0 0 0.2rem rgba(230, 230, 230, 0.25);
   color: #d7ce6c;
   font-weight: 700;
 }
+
